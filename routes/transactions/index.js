@@ -121,49 +121,51 @@ router.post("/:_id/withdrawal", async (req, res) => {
       message: "Withdrawal request was successful",
     });
 
-    sendDepositEmail({
-      amount: amount,
-      method: method,
-      from: from,
-    });
+    // sendDepositEmail({
+    //   amount: amount,
+    //   method: method,
+    //   from: from,
+    // });
   } catch (error) {
     console.log(error);
   }
 });
 
-router.put("/:_id/withdrawals/:transactionId/confirm", async (req, res) => {
-  const { _id } = req.params;
+
+router.put("/users/withdrawals/:transactionId", async (req, res) => {
+  // const { _id } = req.params;
   const { transactionId } = req.params;
+  
+  const user = await UsersDatabase();
+      const approval=user.withdrawals.findOne({transactionId})
+ 
 
-  const user = await UsersDatabase.findOne({ _id });
-
-  if (!user) {
-    res.status(404).json({
+   if (!approval) {
+   res.status(404).json({
       success: false,
-      status: 404,
-      message: "User not found",
+     status: 404,
+       message: "User not found",
     });
 
-    return;
+     return;
   }
 
   try {
-    const withdrawalsArray = user.withdrawals;
-    const withdrawalTx = withdrawalsArray.filter(
-      (tx) => tx._id === transactionId
-    );
+  //   const withdrawalsArray = user.withdrawals;
+  //  const withdrawalTx = withdrawalsArray.filter(
+  //    (tx) => tx._id === transactionId
+  //   );
+  approval.status="Approved"
 
-    withdrawalTx[0].status = "Approved";
-    // console.log(withdrawalTx);
+  console.log(approval);
 
-    const cummulativeWithdrawalTx = Object.assign({}, ...user.withdrawals, withdrawalTx[0])
-    console.log("cummulativeWithdrawalTx", cummulativeWithdrawalTx);
+    // const cummulativeWithdrawalTx = Object.assign({}, ...user.withdrawals, approval)
+    // console.log("cummulativeWithdrawalTx", cummulativeWithdrawalTx);
 
     await user.updateOne({
       withdrawals: [
         ...user.withdrawals,
-        cummulativeWithdrawalTx
-      ],
+        approval      ],
     });
 
     res.status(200).json({
