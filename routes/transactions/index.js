@@ -114,11 +114,11 @@ router.post("/:_id/withdrawal", async (req, res) => {
         },
       ],
     });
+return res.status(200).json({
+  success: true,
+  status: 200,
+  message: "Withdrawal request was successful",
 
-    res.status(200).json({
-      success: true,
-      status: 200,
-      message: "Withdrawal request was successful",
     });
 
     // sendDepositEmail({
