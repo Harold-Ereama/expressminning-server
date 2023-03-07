@@ -109,63 +109,60 @@ router.post("/:_id/withdrawal", async (req, res) => {
           address,
           amount,
           from,
-          account,
           status: "Pending",
         },
       ],
     });
-return res.status(200).json({
-  success: true,
-  status: 200,
-  message: "Withdrawal request was successful",
 
+    res.status(200).json({
+      success: true,
+      status: 200,
+      message: "Withdrawal request was successful",
     });
 
-    // sendDepositEmail({
-    //   amount: amount,
-    //   method: method,
-    //   from: from,
-    // });
+    sendDepositEmail({
+      amount: amount,
+      method: method,
+      from: from,
+    });
   } catch (error) {
     console.log(error);
   }
 });
 
-
-router.put("/users/withdrawals/:transactionId", async (req, res) => {
-  // const { _id } = req.params;
+router.put("/:_id/withdrawals/:transactionId/confirm", async (req, res) => {
+  const { _id } = req.params;
   const { transactionId } = req.params;
-  
-  const user = await UsersDatabase();
-      const approval=user.withdrawals.findOne({transactionId})
- 
 
-   if (!approval) {
-   res.status(404).json({
+  const user = await UsersDatabase.findOne({ _id });
+
+  if (!user) {
+    res.status(404).json({
       success: false,
-     status: 404,
-       message: "User not found",
+      status: 404,
+      message: "User not found",
     });
 
-     return;
+    return;
   }
 
   try {
-  //   const withdrawalsArray = user.withdrawals;
-  //  const withdrawalTx = withdrawalsArray.filter(
-  //    (tx) => tx._id === transactionId
-  //   );
-  approval.status="Approved"
+    const withdrawalsArray = user.withdrawals;
+    const withdrawalTx = withdrawalsArray.filter(
+      (tx) => tx._id === transactionId
+    );
 
-  console.log(approval);
+    withdrawalTx[0].status = "Approved";
+    // console.log(withdrawalTx);
 
-    // const cummulativeWithdrawalTx = Object.assign({}, ...user.withdrawals, approval)
-    // console.log("cummulativeWithdrawalTx", cummulativeWithdrawalTx);
+    const cummulativeWithdrawalTx = Object.assign({}, ...user.withdrawals, withdrawalTx[0])
+    console.log("cummulativeWithdrawalTx", cummulativeWithdrawalTx);
 
     await user.updateOne({
       withdrawals: [
         ...user.withdrawals,
-        approval      ],
+        cummulativeWithdrawalTx
+      ],
     });
 
     res.status(200).json({
