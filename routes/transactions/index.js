@@ -142,6 +142,17 @@ user[withd].status="approved"
   // data[objIndex].status = 'approved';
 
   // send updated data as response
+
+  if (!userId) {
+    res.status(404).json({
+      success: false,
+      status: 404,
+      message: "User not found",
+    });
+
+    return;
+  }
+
   res.send({ message: 'Status updated successfully', data });
 });
 
