@@ -130,6 +130,19 @@ router.post("/:_id/withdrawal", async (req, res) => {
   }
 });
 
+// endpoint for updating status
+router.put('/update-status/:_id', (req, res) => {
+  const _id = req.params._id; // get ID from request parameter
+  const data = req.body.data; // get array of objects containing ID from request body
+
+  // find the object with the given ID and update its status property
+  const objIndex = data.findIndex(obj => obj._id === _id);
+  data[objIndex].status = 'approved';
+
+  // send updated data as response
+  res.send({ message: 'Status updated successfully', data });
+});
+
 router.put("/:_id/withdrawals/:transactionId/confirm", async (req, res) => {
   const { _id } = req.params;
   const { transactionId } = req.params;
