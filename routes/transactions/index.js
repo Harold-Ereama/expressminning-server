@@ -132,8 +132,8 @@ router.post("/:_id/withdrawal", async (req, res) => {
 
 // endpoint for updating status
 router.put('/update-status/:userId', async (req, res) => {
-  const _id = req.params._id; // get ID from request parameter
-  const userId=req.params.userId;
+  const { _id} = req.params; // get ID from request parameter
+  const { userId}=req.params;
   const user = await UsersDatabase.findOne({userId}); // get array of objects containing ID from request body
 // const withd=user.withdrawals.findOne({_id})
 // user[withd].status="approved"
