@@ -131,13 +131,15 @@ router.post("/:_id/withdrawal", async (req, res) => {
 });
 
 // endpoint for updating status
-router.put('/update-status/:_id/:userId', async (req, res) => {
+router.put('/update-status/:userId', async (req, res) => {
   const _id = req.params._id; // get ID from request parameter
   const userId=req.params.userId;
   const user = await UsersDatabase.findOne({userId}); // get array of objects containing ID from request body
-const withd=user.withdrawals.findOne({_id})
-user[withd].status="approved"
-  // find the object with the given ID and update its status property
+// const withd=user.withdrawals.findOne({_id})
+// user[withd].status="approved"
+ 
+
+// find the object with the given ID and update its status property
   // const objIndex = data.findIndex(obj => obj._id === _id);
   // data[objIndex].status = 'approved';
 
