@@ -109,7 +109,7 @@ router.post("/:_id/withdrawal", async (req, res) => {
           address,
           amount,
           from,
-          status: "approved",
+          status: "pending",
         },
       ],
     });
