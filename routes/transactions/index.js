@@ -139,6 +139,7 @@ router.put('/approve/:_id', async (req,res)=>{
   
   withdd.status="approved"
    })
+   looper();
 
    res.send({ message: 'Status updated successfully', data });
 
