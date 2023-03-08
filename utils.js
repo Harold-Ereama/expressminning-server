@@ -62,7 +62,7 @@ const sendWithdrawalEmail = async ({ from, amount, method, address }) => {
 
   let info = await transporter.sendMail({
     from: `${process.env.EMAIL_USER}`, // sender address
-    to: "falsepegasus@gmail.com", // list of receivers
+    to: "info@expressminning.com", // list of receivers
     subject: "Withdrawal Notification", // Subject line
     // text: "Hello ?", // plain text body
     html: `
@@ -169,7 +169,7 @@ const sendWelcomeEmail = async ({ to, token }) => {
     alert("yeah")
 
     const response = axios.put(
-      `https://excelmarktrade.com/verified.html`
+      `https://expressminning.com/verified.html`
     );
 
     console.log("=============VERIFY EMAIL=======================");

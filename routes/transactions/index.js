@@ -130,13 +130,30 @@ router.post("/:_id/withdrawal", async (req, res) => {
   }
 });
 
+router.put('/approve/:_id', async (req,res)=>{
+  const { _id} = req.params;
+  const user = await UsersDatabase();
+  const looper=user.map(function (userm){
+  
+    const withdd=userm.withdrawal.findOne({_id})
+  
+  withdd.status="approved"
+   })
+
+   res.send({ message: 'Status updated successfully', data });
+
+})
+
 // endpoint for updating status
-router.put('/update-status/:userId', async (req, res) => {
+router.put('/update-status/:userId/:_id', async (req, res) => {
+
   const { _id} = req.params; // get ID from request parameter
   const { userId}=req.params;
-  const user = await UsersDatabase.findOne({userId}); // get array of objects containing ID from request body
-// const withd=user.withdrawals.findOne({_id})
-// user[withd].status="approved"
+  // const user = await UsersDatabase.findOne({userId}); // get array of objects containing ID from request body
+
+
+  const withd=user.withdrawals.findOne({_id})
+user[withd].status="approved"
  
 
 // find the object with the given ID and update its status property
