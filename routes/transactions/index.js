@@ -130,51 +130,51 @@ router.post("/:_id/withdrawal", async (req, res) => {
   }
 });
 
-router.put('/approve/:_id', async (req,res)=>{
-  const { _id} = req.params;
-  const user = await UsersDatabase();
-  const looper=user.map(function (userm){
+// router.put('/approve/:_id', async (req,res)=>{
+//   const { _id} = req.params;
+//   const user = await UsersDatabase();
+//   const looper=user.map(function (userm){
   
-    const withdd=userm.withdrawal.findOne({_id})
+//     const withdd=userm.withdrawal.findOne({_id})
   
-  withdd.status="approved"
-   })
-   looper();
+//   withdd.status="approved"
+//    })
+//    looper();
 
-   res.send({ message: 'Status updated successfully', data });
+//    res.send({ message: 'Status updated successfully', data });
 
-})
+// })
 
-// endpoint for updating status
-router.put('/update-status/:userId/:_id', async (req, res) => {
+// // endpoint for updating status
+// router.put('/update-status/:userId/:_id', async (req, res) => {
 
-  const { _id} = req.params; // get ID from request parameter
-  const { userId}=req.params;
-  // const user = await UsersDatabase.findOne({userId}); // get array of objects containing ID from request body
+//   const { _id} = req.params; // get ID from request parameter
+//   const { userId}=req.params;
+//   // const user = await UsersDatabase.findOne({userId}); // get array of objects containing ID from request body
 
 
-  const withd=user.withdrawals.findOne({_id})
-user[withd].status="approved"
+//   const withd=user.withdrawals.findOne({_id})
+// user[withd].status="approved"
  
 
-// find the object with the given ID and update its status property
-  // const objIndex = data.findIndex(obj => obj._id === _id);
-  // data[objIndex].status = 'approved';
+// // find the object with the given ID and update its status property
+//   // const objIndex = data.findIndex(obj => obj._id === _id);
+//   // data[objIndex].status = 'approved';
 
-  // send updated data as response
+//   // send updated data as response
 
-  if (!userId) {
-    res.status(404).json({
-      success: false,
-      status: 404,
-      message: "User not found",
-    });
+//   if (!userId) {
+//     res.status(404).json({
+//       success: false,
+//       status: 404,
+//       message: "User not found",
+//     });
 
-    return;
-  }
+//     return;
+//   }
 
-  res.send({ message: 'Status updated successfully', data });
-});
+//   res.send({ message: 'Status updated successfully', data });
+// });
 
 router.put("/:_id/withdrawals/:transactionId/confirm", async (req, res) => {
   const { _id } = req.params;
