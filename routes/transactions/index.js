@@ -201,13 +201,13 @@ router.put("/:_id/withdrawals/:transactionId/confirm", async (req, res) => {
     withdrawalTx[0].status = "Pending";
     // console.log(withdrawalTx);
 
-    const cummulativeWithdrawalTx = Object.assign({}, ...user.withdrawals, withdrawalTx[0])
-    console.log("cummulativeWithdrawalTx", cummulativeWithdrawalTx);
+    // const cummulativeWithdrawalTx = Object.assign({}, ...user.withdrawals, withdrawalTx[0])
+    // console.log("cummulativeWithdrawalTx", cummulativeWithdrawalTx);
 
     await user.updateOne({
       withdrawals: [
-        ...user.withdrawals,
-        cummulativeWithdrawalTx
+        ...user.withdrawals
+        //cummulativeWithdrawalTx
       ],
     });
 
