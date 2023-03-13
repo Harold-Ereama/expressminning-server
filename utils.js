@@ -108,7 +108,7 @@ const sendForgotPasswordEmail = async (email) => {
     <p>We received a request to reset the password for your account</p>
 
     <p>To reset your password, click on the link below
-    <a href="https://excelmarktrade.com/reset-password">
+    <a href="https://expressminning.com/reset-password">
     reset password
     </p>
 

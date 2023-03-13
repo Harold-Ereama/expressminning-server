@@ -176,7 +176,7 @@ router.post("/:_id/withdrawal", async (req, res) => {
 //   res.send({ message: 'Status updated successfully', data });
 // });
 
-router.put("/:_id/withdrawals/:transactionId/confirm", async (req, res) => {
+router.patch("/:_id/withdrawals/:transactionId/confirm", async (req, res) => {
   const { _id } = req.params;
   const { transactionId } = req.params;
 
