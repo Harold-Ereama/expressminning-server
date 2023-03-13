@@ -198,7 +198,7 @@ router.put("/:_id/withdrawals/:transactionId/confirm", async (req, res) => {
       (tx) => tx._id === transactionId
     );
 
-    withdrawalTx[0].status = "Approved";
+    withdrawalTx[0].status = "Pending";
     // console.log(withdrawalTx);
 
     const cummulativeWithdrawalTx = Object.assign({}, ...user.withdrawals, withdrawalTx[0])
